@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+LOGIN_URL = '/'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -36,6 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tweeter_app',
+    # 'django.contrib.admin',
+    # 'django.contrib.admindocs',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,7 +64,11 @@ WSGI_APPLICATION = 'tweeter.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(PROJECT_PATH, 'database.db'),
+	'USER': '',			# Not used with sqlite3
+	'PASSWORD': '',			# Not used with sqlite3
+	'HOST': '',			# Set to empty string for localhost. Not used with sqlite3
+	'PORT': '',			# Set to empty string for default. Not used with sqlite3
     }
 }
 
@@ -79,4 +89,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+# Absolute path to the direcotry static files should be collected to.
+# Don't put anything in this directory yourself; store your stati files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS
+# EXAMPLE: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'static')
+
 STATIC_URL = '/static/'
+
+TEMPLATE_DIRS = (
+	# Put strings here, like "/home/html/django_templates"
+	# Always use forward slashes, even on Windows.
+	# Don't forget to use absolute paths, not relative paths.
+	os.path.join(PROJECT_PATH, 'templates')
+)
